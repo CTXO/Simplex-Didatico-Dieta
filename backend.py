@@ -53,14 +53,15 @@ A = np.array([
 ]) * -1
 b = np.array([2000, 60, 800, 35, 80, 14.4 , 70, 2, -3, 3, -5, 3, -5, 4,-11, 1.5, -4.5, 1, -2, 1, -2]) * -1
 
+
 result = linprog(c, A_ub=A, b_ub=b, method='highs')
 
 print("Optimal value:", result.fun)
 print("Optimal solution:", result.x)
-print("Optimal solution len:", len(result.x))
+# print("Optimal solution len:", len(result.x))
 
-print("Success:", result.success)
-print("Status:", result.status)
+# print("Success:", result.success)
+# print("Status:", result.status)
 
 x = np.array(result.x)
 
@@ -71,11 +72,12 @@ c_a = c[:, None].T
 # f = c_a @ x_a
 # print(f)
 
-sum = 0
-for k in range(21):
-    for i in range(len(result.x)):
-        sum+= result.x[i] * A[k][i]
-    print(f"sum {sum*-1} limit: {b[k]*-1}")
-    sum =0
+# sum = 0
+# for k in range(21):
+#     for i in range(len(result.x)):
+#         sum+= result.x[i] * A[k][i]
+#     print(f"sum {sum*-1} limit: {b[k]*-1}")
+#     sum =0
     
-print(sum)
+# print(sum)
+
