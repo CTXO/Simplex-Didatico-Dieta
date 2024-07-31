@@ -1,4 +1,7 @@
 #AUX Functions
+from copy import deepcopy
+
+
 def argmin(array):
     min_elem = min(array)
     return array.index(min_elem)
@@ -20,20 +23,46 @@ def sum_lists(a, b):
 
 #Tableau Functions
 def create_tableau(A, b, c):
-    tableau = A
-    
+    tableau = deepcopy(A)
+    b = deepcopy(b)
+    c = deepcopy(c)
+
     for i in range(len(tableau)):
         tableau[i].append(-b[i])
 
-    identity_matrix = generate_identity_matrix(len(c) + 1) 
+    identity_matrix = generate_identity_matrix(len(c) + 1)
     tableau.extend(identity_matrix)
-    
+
 
     tableau.append(c + [0])
-    
+    tableau = transpose(tableau)
+
 
     return tableau
-      
+
+
+# def create_tableau2(A, b, c):
+#     tableau = A
+#
+#     for i in range(len(tableau)):
+#         tableau[i].append(-b[i])
+#
+#     # identity_matrix = generate_identity_matrix(len(c) + 1)
+#     # tableau.extend(identity_matrix)
+#     tableau = transpose(tableau)
+#     for row in range(len(tableau)):
+#         for col in range(len(tableau[row])):
+#             if row == col:
+#                 tableau[row].append(1)
+#             else:
+#                 tableau[row].append(0)
+#         if row < len(c):
+#             tableau[row].append(c[row])
+#     tableau[-1].append(0)
+#
+#     return tableau
+#
+
 def tableau_has_finished(tableau):
     for elem in tableau[-1]:
         if elem < 0:
@@ -76,6 +105,7 @@ def get_next_tableau_part2(tableau, pivot_index):
         tableau[row] = new_row
     return tableau
 
+
 c = [12, 32, 16, 11, 2, 9, 7, 20, 8, 7, 69, 14, 182, 12, 29, 75, 0.6, 6, 34, 9]
 
 A = [
@@ -101,17 +131,16 @@ A = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1]
 ]
-b = [2000, 60, 800, 35, 80, 14.4 , 70, 2, -3, 3, -5, 3, -5, 4,-11, 1.5, -4.5, 1, -2, 1, -2]
+b = [2000, 60, 800, 35, 80, 14.4, 70, 2, -3, 3, -5, 3, -5, 4,-11, 1.5, -4.5, 1, -2, 1, -2]
 
 
 tableau = create_tableau(A, b, c)
-tableau = transpose(tableau)
-for x in range(len(tableau)):
-    print(tableau[x])
+# tableau = create_tableau2(A, b, c)
 
 while not tableau_has_finished(tableau):
-    get_next_tableau(tableau)
-    
+    pivot_index = get_next_tableau_part1(tableau)
+    get_next_tableau_part2(tableau, pivot_index)
+
 for i,x in enumerate(tableau[-1][21:]):
     print(f"x{i}: {x}")
 

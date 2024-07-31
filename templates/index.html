@@ -1,1 +1,27 @@
-<h1>Hello world</h1>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="ui sixteen wide column">
+                {% include 'tableau.html' %}
+            </div>
+
+            <div class="six wide column buttons-column">
+                <div class="ui compact primary labeled icon button">
+                    <i class="angle double left icon"></i>
+                    Anterior
+                </div>
+                <div class="ui compact primary labeled icon button">
+                    <i class="angle double right icon"></i>
+                    Próximo
+                </div>
+
+            </div>
+            <div class="six wide right floated column info-column">
+                <p>Variável de entrada:</p>
+                <p>Variável de saída:</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

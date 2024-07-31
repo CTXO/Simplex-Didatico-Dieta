@@ -1,0 +1,19 @@
+.info-column {
+    text-align: end;
+}
+
+.info-column p{
+    margin-bottom: 0;
+}
+
+.ui.container {
+    margin-top: 1rem;
+}
+
+.buttons-column {
+    display: flex!important;
+    flex-direction: row;
+    align-items: center;
+}
+
+
