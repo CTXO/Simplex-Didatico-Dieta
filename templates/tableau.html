@@ -3,13 +3,13 @@
         <tr>
             <th>Base</th>
             {% for col in tableau.0 %}
-                {% if loop.index <= 21 %}
+                {% if loop.index <= 10 %}
                     <th>y{{ loop.index }}</th>
-                {% elif loop.index <= 41 %}
-                    <th>x{{ loop.index - 21 }}</th>
-                {% elif loop.index == 42 %}
+                {% elif loop.index <= 20 %}
+                    <th>x{{ loop.index - 10 }}</th>
+                {% elif loop.index == 21 %}
                     <th>P</th>
-                {% elif loop.index == 43 %}
+                {% elif loop.index == 22 %}
                     <th>Solution</th>
                 {% endif %}
             {% endfor %}
