@@ -1,0 +1,18 @@
+<table class="ui celled table">
+    <thead>
+        <tr>
+            {% for col in tableau.0 %}
+                <th>x{{ loop.index }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            {% for row in tableau %}
+                <tr>
+                    {% for elem in row %}
+                        <td>{{ elem }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+    </tbody>
+</table>

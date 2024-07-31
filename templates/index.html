@@ -1,27 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="ui container">
+    <div class="main container">
         <div class="ui grid">
             <div class="ui sixteen wide column">
                 {% include 'tableau.html' %}
             </div>
 
-            <div class="six wide column buttons-column">
-                <div class="ui compact primary labeled icon button">
+            <!-- Buttons Column -->
+            <div class="ui three wide column buttons-column">
+                <button class="massive fluid ui left labeled icon button active">
                     <i class="angle double left icon"></i>
                     Anterior
-                </div>
-                <div class="ui compact primary labeled icon button">
-                    <i class="angle double right icon"></i>
-                    Próximo
-                </div>
-
+                </button>
             </div>
-            <div class="six wide right floated column info-column">
+            <div class="ui three wide column buttons-column">
+                <button class="massive fluid ui right labeled icon button active">
+                    Próximo
+                    <i class="angle double right icon"></i>
+                </button>
+            </div>
+            
+            <!-- Info Panel Column -->
+            <div class="ui ten wide column info-column">
                 <p>Variável de entrada:</p>
                 <p>Variável de saída:</p>
             </div>
         </div>
-
     </div>
 {% endblock %}

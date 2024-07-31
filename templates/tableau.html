@@ -1,18 +1,39 @@
-<table class="ui celled table">
+<table class="ui compact celled definition table">
     <thead>
         <tr>
+            <th>Base</th>
             {% for col in tableau.0 %}
-                <th>x{{ loop.index }}</th>
+                {% if loop.index <= 21 %}
+                    <th>y{{ loop.index }}</th>
+                {% elif loop.index <= 41 %}
+                    <th>x{{ loop.index - 21 }}</th>
+                {% elif loop.index == 42 %}
+                    <th>P</th>
+                {% elif loop.index == 43 %}
+                    <th>Solution</th>
+                {% endif %}
             {% endfor %}
+            <th>TR</th>
         </tr>
-        </thead>
-        <tbody>
-            {% for row in tableau %}
-                <tr>
-                    {% for elem in row %}
-                        <td>{{ elem }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
+    </thead>
+    <tbody>
+        {% for row in tableau %}
+            <tr>
+                <!-- Row header -->
+                {% if loop.last %}
+                    <td>P</td>
+                {% else %}
+                    <td>x{{ loop.index }}</td>
+                {% endif %}
+                
+                <!-- Table body (data from tableau) -->
+                {% for elem in row %}
+                    <td>{{ elem }}</td>
+                {% endfor %}
+                
+                <!-- Empty column for 'Tr' -->
+                <td></td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
