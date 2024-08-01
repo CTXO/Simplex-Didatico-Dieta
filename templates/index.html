@@ -8,7 +8,7 @@
                     {% include 'tableau.html' %}
                 {% endfor %}
             </div>
-            <div class="ui row">
+            <div class="ui row" id="info-container">
                 <!-- Info Panel Column -->
               <div class="ui ten wide centered column">
                   <div class="info-column">
@@ -18,7 +18,7 @@
                   </div>
                  
               </div>
-          </div>
+            </div>
 
             <!-- Buttons Column -->
             <div class="ui row">
@@ -78,6 +78,7 @@
             if (!$(`table[data-index="${nextIndex + 1}"]`).length) {
                 $(this).addClass('disabled');
                 $('#summary-container').show();
+                $('#info-container').hide();
             }
 
             $('#previous-button').removeClass('disabled');
@@ -102,6 +103,7 @@
             populateInAndOut(previousTable);
 
             $('#summary-container').hide();
+            $('#info-container').show();
 
             if (previousIndex === 1) {
                 $(this).addClass('disabled');
