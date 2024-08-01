@@ -2,29 +2,113 @@
 {% block content %}
     <div class="main container">
         <div class="ui grid">
-            <div class="ui sixteen wide column">
-                {% include 'tableau.html' %}
+            <div class="ui sixteen wide column table-container">
+                {% for data_tableau in data %}
+                    {% set tableau_index = loop.index %}
+                    {% include 'tableau.html' %}
+                {% endfor %}
             </div>
+            <div class="ui row">
+                <!-- Info Panel Column -->
+              <div class="ui ten wide centered column">
+                  <div class="info-column">
+                    <p>Variável de entrada:<span id="in-variable"></span></p>
+                    <p>Variável de saída:<span id="out-variable"> </span></p>
+
+                  </div>
+                 
+              </div>
+          </div>
 
             <!-- Buttons Column -->
-            <div class="ui three wide column buttons-column">
-                <button class="massive fluid ui left labeled icon button active">
-                    <i class="angle double left icon"></i>
-                    Anterior
-                </button>
-            </div>
-            <div class="ui three wide column buttons-column">
-                <button class="massive fluid ui right labeled icon button active">
-                    Próximo
-                    <i class="angle double right icon"></i>
-                </button>
+            <div class="ui row">
+                <div class="ui six wide centered column buttons-column">
+                    <button class="big  ui primary left labeled icon button disabled" id="previous-button">
+                        <i class="angle double left icon"></i>
+                        Anterior
+                    </button>
+            
+                    <button class="big ui primary right labeled icon button" id="next-button">
+                        Próximo
+                        <i class="angle double right icon"></i>
+                    </button>
+                </div>
             </div>
             
-            <!-- Info Panel Column -->
-            <div class="ui ten wide column info-column">
-                <p>Variável de entrada:</p>
-                <p>Variável de saída:</p>
+          
+            <div class="ten wide centered column" id="summary-container">
+                <div class="ui segment">
+                    <h2>Custo: <span>{{ summary.cost }}</span></h2>
+                    <h2>Alimentos:</h2>
+                    <ul>
+                        {% for food_name, food_grams in summary.foods.items() %}
+                            <li><h3>{{food_name}}: <b>{{food_grams}}</b> gramas</h3></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function populateInAndOut(table) {
+            const inVariable = $('#in-variable');
+            const outVariable = $('#out-variable');
+            
+            const inValue = table.attr("data-in");
+            const outValue = table.attr("data-out");
+
+            inVariable.text(inValue);
+            outVariable.text(outValue);
+        }
+        $('#next-button').click(function() {
+            const activeTable = $('table.active');
+            activeTable.removeClass('active');
+            activeTable.addClass('hidden-table');
+
+            const tableIndex = parseInt(activeTable.attr('data-index'));
+            const nextIndex = tableIndex + 1;
+
+            const nextTable = $(`table[data-index="${nextIndex}"]`)
+            nextTable.addClass('active')
+            nextTable.removeClass('hidden-table')
+
+            populateInAndOut(nextTable);
+
+            if (!$(`table[data-index="${nextIndex + 1}"]`).length) {
+                $(this).addClass('disabled');
+                $('#summary-container').show();
+            }
+
+            $('#previous-button').removeClass('disabled');
+            
+        })
+
+        $('#previous-button').click(function() {
+            const activeTable = $('table.active');
+            activeTable.removeClass('active');
+            activeTable.addClass('hidden-table');
+
+            const tableIndex = parseInt(activeTable.attr('data-index'));
+            const previousIndex = tableIndex - 1;
+            if (previousIndex < 0) {
+                return;
+            }
+
+            const previousTable = $(`table[data-index="${previousIndex}"]`)
+            previousTable.addClass('active')
+            previousTable.removeClass('hidden-table')
+
+            populateInAndOut(previousTable);
+
+            $('#summary-container').hide();
+
+            if (previousIndex === 1) {
+                $(this).addClass('disabled');
+            }
+
+            $('#next-button').removeClass('disabled');
+
+        })
+    </script>
 {% endblock %}

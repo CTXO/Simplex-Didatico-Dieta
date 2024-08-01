@@ -1,38 +1,38 @@
-<table class="ui compact celled definition table">
+<table class="ui compact large celled definition center aligned table {% if tableau_index != 1 %} hidden-table {% else %} active {% endif %} "
+        data-index="{{ tableau_index }}"
+        data-in="{{ data_tableau.headers[data_tableau.pivot_header] }}"
+        data-out="{{ data_tableau.basis[data_tableau.pivot_basis] }}">
     <thead>
         <tr>
             <th>Base</th>
-            {% for col in tableau.0 %}
-                {% if loop.index <= 10 %}
-                    <th>y{{ loop.index }}</th>
-                {% elif loop.index <= 20 %}
-                    <th>x{{ loop.index - 10 }}</th>
-                {% elif loop.index == 21 %}
-                    <th>P</th>
-                {% elif loop.index == 22 %}
-                    <th>Solution</th>
-                {% endif %}
+            {% for header in data_tableau.headers %}
+                <th {% if header == data_tableau.headers[data_tableau.pivot_header] %} class="green colored"{% endif %}>{{ header }}</th>
             {% endfor %}
-            <th>TR</th>
         </tr>
     </thead>
     <tbody>
-        {% for row in tableau %}
+        {% for row in data_tableau.tableau %}
             <tr>
-                <!-- Row header -->
                 {% if loop.last %}
                     <td>P</td>
                 {% else %}
-                    <td>x{{ loop.index }}</td>
+                    <td {% if loop.index0 == data_tableau.pivot_basis  %} class="red colored" {% endif %}>
+
+                        {{ data_tableau.basis[loop.index0] }}
+                    </td>
                 {% endif %}
                 
-                <!-- Table body (data from tableau) -->
                 {% for elem in row %}
-                    <td>{{ elem }}</td>
+                    <td>{{ elem|round(2) }}</td>
                 {% endfor %}
-                
-                <!-- Empty column for 'Tr' -->
-                <td></td>
+
+                {% set tr = data_tableau.tr[loop.index0] %}
+                {% if tr %}
+                    <td>{{ data_tableau.tr[loop.index0]|round(2) }}</td>
+                {% else %}
+                     <td>{{ data_tableau.tr[loop.index0] }} </td>
+
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>
