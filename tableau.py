@@ -83,20 +83,10 @@ def get_next_tableau(tableau):
         new_row = aux.sum_lists(current_row, pivot_row_multiplied)
         tableau[row] = new_row
         
-    print(tableau)
-    print('\n\n')
     return ratios, pivot_col, pivot_row
 
 
 def solve_simplex(tableau):
-    # tableaus_data = {
-    # 'tableaus': [],
-    # 'tableau_headers': [],
-    # 'tableau_basis': [],
-    # 'pivot_column': [],
-    # 'pivot_row': [],
-    # 'tableau_TRs': [],
-    # }
     headers = [f'y{i}' for i in range(len(data.b))]
     headers.extend([f'x{i}' for i in range(len(data.c))])
     headers.extend(['P', 'Solution', 'TR'])
@@ -123,8 +113,6 @@ def solve_simplex(tableau):
         tableaus_data.append({'tableau': tableau_copy, 'headers': headers, 'basis': basis_copy, 'tr': None})
 
         
-    for i,x in enumerate(tableau[-1][2:]):
-        print(f"x{i}: {x}")
     return tableaus_data
 
 
@@ -137,4 +125,3 @@ tableau_summary = {
     'cost': f'R$ {last_tableau[-1][-1] / 100:.2f}'.replace('.',','),
     'foods': {data.food_names[i]: round(portions[i]*data.food_portions[i]) for i in range(len(data.food_names))}
 }
-print(tableau_summary)
